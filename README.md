@@ -2,7 +2,10 @@
 
 A new Flutter project.
 
-  ![](assets/FoL.gif)
+<p align ="center">
+  <img src="assets/FoL.gif">
+</p>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
