@@ -14,7 +14,7 @@ class _MyGridViewState extends State<MyGridView> {
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: Offset(0, -50),
+      offset: Offset(0, -60),
       child: SizedBox(
         height: 350,
         child: GridView.count(

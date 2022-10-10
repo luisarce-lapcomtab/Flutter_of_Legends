@@ -9,12 +9,12 @@ class BtnMining extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.all(22),
       decoration: BoxDecoration(
-          color: Color.fromARGB(224, 0, 0, 0),
+          color: Color.fromARGB(213, 0, 0, 0),
           border: Border.all(color: Colors.white, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      height: 50,
+          borderRadius: BorderRadius.all(Radius.circular(12))),
+      height: 45,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [

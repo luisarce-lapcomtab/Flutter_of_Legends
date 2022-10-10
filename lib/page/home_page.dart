@@ -2,41 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_of_legends/widgets/widgets.dart';
 // ignore_for_file: prefer_const_constructors
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late Animation<Offset> hoverAnimation;
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true);
+    hoverAnimation = Tween(begin: Offset(0, 0), end: Offset(0, 0.027))
+        .animate(animationController);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      //physics: const NeverScrollableScrollPhysics(),
-      child: Column(
-        // ignore: prefer_const_literals_to_create_immutables
-        children: [
-          Image(
-            height: 240,
-            image: AssetImage('assets/cover1.png'),
-            fit: BoxFit.cover,
-          ),
-          MyGridView(),
-          /*Transform.translate(
-            offset: Offset(0, -55),
-            child: Container(
-              margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-              height: 80,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.7),
-                      spreadRadius: 1,
-                      blurRadius: 8,
-                    )
-                  ]),
+    return Column(
+      children: [
+        SlideTransition(
+          position: hoverAnimation,
+          child: Transform.translate(
+            offset: Offset(0, -6),
+            child: Image(
+              height: 240,
+              image: AssetImage('assets/cover1.png'),
+              fit: BoxFit.cover,
             ),
-          )*/
-        ],
-      ),
+          ),
+        ),
+        MyGridView(),
+      ],
     );
   }
 }

@@ -10,20 +10,59 @@ class LandsPage extends StatefulWidget {
 }
 
 class _LandsPageState extends State<LandsPage> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.centerRight,
+      children: [
+        AnimatedPositioned(
+          right: 38,
+          duration: Duration(milliseconds: 500),
+          child: InfoCurrentLand(),
+        ),
+        AnimatedPositioned(
+          duration: Duration(milliseconds: 500),
+          right: isExpanded ? 165 : 48,
+          child: GestureDetector(
+            onHorizontalDragUpdate: onHorizontalDragUpdate,
+            onTap: () {},
+            child: CurrentLand(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void onHorizontalDragUpdate(DragUpdateDetails details) {
+    if (details.delta.dx < 0) {
+      setState(() {
+        isExpanded = true;
+      });
+    } else if (details.delta.dx > 0) {
+      setState(() {
+        isExpanded = false;
+      });
+    }
+  }
+}
+
+class CurrentLand extends StatelessWidget {
+  const CurrentLand({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
       height: 500,
-      width: 250,
+      width: 230,
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: const [Colors.brown, Color.fromARGB(199, 255, 255, 255)]),
-          borderRadius: BorderRadius.circular(20),
-          color: Color.fromARGB(220, 255, 255, 255),
-          boxShadow: [
+          gradient: LinearGradient(colors: const [Colors.brown, Colors.white]),
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: const [
             BoxShadow(
-              color: Colors.black.withOpacity(0.7),
               spreadRadius: 1,
               blurRadius: 8,
             )
@@ -34,17 +73,17 @@ class _LandsPageState extends State<LandsPage> {
           BadgeWidget(),
           Center(
             child: const Image(
-              height: 220,
+              height: 210,
               image: AssetImage('assets/desert.png'),
             ),
           ),
           Transform.translate(
-            offset: Offset(0, -30),
+            offset: Offset(0, -25),
             child: Opacity(
               opacity: 0.75,
               child: Container(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  height: 90,
+                  height: 80,
                   width: MediaQuery.of(context).size.width,
                   color: Colors.black,
                   child: Row(
@@ -106,6 +145,70 @@ class BadgeWidget extends StatelessWidget {
         child: Text(
           'FREE',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+}
+
+class InfoCurrentLand extends StatelessWidget {
+  const InfoCurrentLand({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 46, right: 10),
+      height: 500,
+      width: 170,
+      decoration: BoxDecoration(
+          color: Color.fromARGB(255, 96, 125, 139),
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: const [
+            BoxShadow(
+              spreadRadius: 1,
+              blurRadius: 8,
+            )
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              'Info',
+              style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+            SizedBox(height: 18),
+            Text(
+              'Capacity',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 17.5,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              ' 18.00',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 15),
+            Text(
+              'Daily Production',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 17.5,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              ' 18.00',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );
